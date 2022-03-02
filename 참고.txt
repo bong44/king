@@ -1,0 +1,28 @@
+무슨 애러 나면 yarn add express 이거 터미널에 쓰라대
+
+앞서 필요한 프로그램 들: nodejs, vscode
+
+https://waspro.tistory.com/620 -- 개발환경 구축 가이드
+
+- app.js : app.js는 전체 공통으로 적용할 모듈과 initialize, variable, node listen 정보 등을 설정하며, 특히 Node.js로 유입하는 요청을 관리하는 ingress 역할을 담당한다. 
+app.js가 router 역할을 수행할 수 있지만, 가독성과 유지보수 효율성을 위해 분리하여 관리한다.
+
+- package.json : Maven dependency 관리를 위한 pom.xml과 같이 Node Module의 디펜던시를 관리하는 파일이다. //npm init 을 통해 만들 수 있음
+
+- node_modules : node module이 저장되는 공간이다. npm install로 설치되는 dependencies package가 위치한다.
+
+- public : static 파일을 위치시킨다.
+
+- router : app.js에서 분리된 세분화된 route rule을 정의한다.
+
+- views : ejs가 저장되는 공간이다.
+
+(node는 웹 개발 기능을 지원하지 않는다. 따라서 HTTP 요청 시 이를 처리하기 위한 코드가 추가되어야 하며, 이는 유지보수 효율성을 저하시키는 요소 중 하나이다.
+
+node에서 이러한 웹 개발 기능을 제공하기 위한 것이 바로 express 이다.
+
+express는 HTTP 요청(GET, POST 등)을 처리하는 Handler를 구성하여 Routing 처리 및 미들웨어 웹 프레임워크로써 존재한다. 즉 express를 사용하는 것은 미들웨어 함수를 호출하는 것과 같다고 볼 수 있다.
+
+미들웨어 함수는 req, res, next로 구성된 variable을 갖으며, 아래와 같은 다양한 미들웨어 인스턴스에 바인딩할 수 있다.)
+
+- express-generator (EJS)를 설치한 후, 'express -e (프로젝트명)' 커멘드 라인을 통해 ejs 프로젝트를 만들 수 있다
