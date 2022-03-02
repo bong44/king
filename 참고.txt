@@ -26,3 +26,5 @@ express는 HTTP 요청(GET, POST 등)을 처리하는 Handler를 구성하여 Ro
 미들웨어 함수는 req, res, next로 구성된 variable을 갖으며, 아래와 같은 다양한 미들웨어 인스턴스에 바인딩할 수 있다.)
 
 - express-generator (EJS)를 설치한 후, 'express -e (프로젝트명)' 커멘드 라인을 통해 ejs 프로젝트를 만들 수 있다
+
+- npm script 실행법: npm run [스크립트이름(package.json에서 설정한)]
