@@ -4,8 +4,13 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
+var session = require('express-session');
+const fileStore = require('session-file-store')(session);
+
+var indexRouter = require('./routes/main');
 var usersRouter = require('./routes/users');
+
+var logRouter = require('./routes/log');
 
 var app = express();
 
@@ -19,9 +24,19 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'views')));
+
+//세션 미들웨어
+app.use(session({
+  secret :"king",
+  resave:false,
+  secure:true,
+  saveUninitialized:true,
+  store: new fileStore()
+}));
 
 //라우터 설정
-app.use('/', indexRouter);
+app.use('/', indexRouter, logRouter);
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
