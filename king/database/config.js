@@ -2,8 +2,8 @@ const maria = require('mariadb');
 
 
 const pool = maria.createPool({
-    "host":"http://49.170.71.189",
-    "port":40001,
+    "host":"49.170.71.189",
+    "port":3306,
     "user":"bong",
     "password":"bong",
     "database":"king",

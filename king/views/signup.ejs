@@ -28,45 +28,86 @@
         <link rel="stylesheet" type="text/css" href="./loglib/css/main.css">
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+        <!-- <script src="https://developers.kakao.com/sdk/js/kakao.js"></script> -->
         <script type="text/javascript"> 
-        function login() { 
-            var ajax = $.ajax({ 
-                url: "/login", 
-                data: "userid=" + $("#userid").val() + "&password=" + $("#password").val(), 
-                type: 'POST', 
-                success: function (result) { 
-                    if (result.code == 0) { 
-                        // $("#login").hide(); 
-                        // $("#loginout").show(); 
-                        // $("#loginName").html(result.data.name); 
-                        location.replace("/");
-                        } else { 
-                            alert(result.msg); 
-                            } 
+            function signup() { 
+
+                var email_rule =  /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+                // id 체크 정규식 : 숫자, 영문만 입력 가능
+                var id_rule = /^[0-9a-z]+$/;
+                // : 숫자, 특문 각 1회 이상, 영문은 2개 이상 사용하여 8자리 이상 입력
+                var pass_rule = /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,50}$/;
+
+                var email =$("#email").val();
+                var password =$("#password").val();
+                var userid =$("#userid").val();
+                var phoneNum =$("#phoneNum").val();
+                var name =$("#name").val();
+
+                if(!email){
+                    alert("이메일을 입력해주세요");
+                    $("#email").focus();
+                    return false;
+                }
+                if(!password){
+                    alert("비밀번호를 입력해주세요");
+                    $("#password").focus();
+                    return false;
+                }
+                if(!userid){
+                    alert("아이디를 입력해주세요");
+                    $("#userid").focus();
+                    return false;
+                }
+                if(!phoneNum){
+                    alert("전화번호를 입력해주세요");
+                    $("#phoneNum").focus();
+                    return false;
+                }
+                if(!phoneNum){
+                    alert("별명을 입력해주세요");
+                    $("#name").focus();
+                    return false;
+                }
+                // mail = email_id+"@"+email_domain;
+                // $("#mail").val(mail);  
+                
+                if(!email_rule.test(email)){
+                    alert("이메일을 형식에 맞게 입력해주세요.");
+                    return false;
+                }
+                if(!id_rule.test(userid)){
+                    alert("숫자, 영문만 입력 가능합니다 14자 이하.");
+                    return false;
+                }
+                if(!pass_rule.test(password)){
+                    alert("숫자, 특문 각 1회 이상, 영문은 2개 이상 사용하여 8자리 이상 20자 이하 입력해주세요.");
+                    return false;
+                }
+
+                var param = {}; 
+                param.userid = userid; 
+                param.password = password; 
+                param.name = name; 
+                param.email = email; 
+                param.phoneNum = phoneNum; 
+                var ajax = $.ajax({ 
+                    url: "/signup", 
+                    data: param, 
+                    type: 'POST', 
+                    dataType: "JSON", 
+                    success: function (result) { 
+                            if(result.code == 0){
+                                alert(result.msg); location.href = "/login"; 
+                            }else if(result.code == 100){
+                                alert(result.msg); 
+                            }else if(result.code == 500){
+                                alert(result.msg); location.href = "/signup"; 
+                            }
                         } 
                     }); 
                 } 
-        // Kakao.init("236af7774c0ac52f58dcd325c0c19953");
-        // function kakaoLogin() {
-        //     Kakao.Auth.login({
-        //     success: function (response) {
-        //         Kakao.API.request({
-        //         url: '/v2/user/me',
-        //         success: function (response) {
-        //             console.log(response)
-        //         },
-        //         fail: function (error) {
-        //             console.log(error)
-        //         },
-        //         })
-        //     },
-        //     fail: function (error) {
-        //         console.log(error)
-        //     },
-        //     })
-        // }
-        </script>
+            </script>
     </head>
     <body>
         <!-- Responsive navbar-->
@@ -89,19 +130,32 @@
 			<div class="wrap-login100 p-t-50 p-b-50">
 				<form class="login100-form validate-form flex-sb flex-w">
 					<span class="login100-form-title p-b-51">
-						로그인
+						회원가입
 					</span>
 
 					
-					<div class="wrap-input100 validate-input m-b-16" data-validate = "아이디는 필수입니다!">
-						<input class="input100" type="text" name="username" id="userid" placeholder="ID">
+					<div class="wrap-input100 validate-input m-b-8" data-validate = "아이디는 필수 입니다!">
+						<input class="input100" type="text" name="username" id="userid" placeholder="ID" maxlength="14">
+						<span class="focus-input100"></span>
+					</div>
+					<div class="wrap-input100 validate-input m-b-8" data-validate = "별명은 필수 입니다!">
+						<input class="input100" type="text" name="name" id="name" placeholder="name" maxlength="14">
 						<span class="focus-input100"></span>
 					</div>
 					
 					
-					<div class="wrap-input100 validate-input m-b-16" data-validate = "비밀번호는 필수입니다!">
-						<input class="input100" type="password" name="pass" id="password" placeholder="Password">
+					<div class="wrap-input100 validate-input m-b-8" data-validate = "비밀번호는 필수입니다!">
+						<input class="input100" type="password" name="pass" id="password" placeholder="Password" maxlength="20">
 						<span class="focus-input100"></span>
+					</div>
+					<div class="wrap-input100 validate-input m-b-8" data-validate = "이메일은 필수입니다!">
+						<input class="input100" type="text" name="email" id="email" placeholder="E-mail">
+						<span class="focus-input100"></span>
+					</div>
+					<div class="wrap-input100 validate-input m-b-8" data-validate = "휴대폰번호는 필수입니다!">
+						<input class="input100" type="text" name="phoneNum" id="phoneNum" placeholder="PH-number">
+						<span class="focus-input100"></span>
+					</div>
 					</div>
 					
 					<div class="flex-sb-m w-full p-t-3 p-b-24">
@@ -120,29 +174,25 @@
 					</div>
 
 					<div class="container-login100-form-btn m-t-17">
-						<button class="login100-form-btn m-b-16" type="button" onclick="login();">
-							Login
+						<button class="login100-form-btn m-b-16" type="button" onclick="signup();">
+							회원가입
 						</button>
 						<!-- <button class="login100-form-btn m-b-16" type="button" onclick="">
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-fill" viewBox="0 0 16 16">
                                 <path d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9.06 9.06 0 0 0 8 15z"/>
                               </svg>&nbsp;&nbsp;카카오계정으로 로그인
-						</button> -->
-						<a class="login100-form-btn m-b-16" type="button" href="/signup">
+						</button>
+						<button class="login100-form-btn m-b-16" type="button" onclick="kakaoApi();">
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-fill" viewBox="0 0 16 16">
                                 <path d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9.06 9.06 0 0 0 8 15z"/>
-                              </svg>&nbsp;&nbsp;회원가입
-                        </a>
+                              </svg>&nbsp;&nbsp;카카오계정으로 회원가입
+						</button> -->
 					</div>
-                    
 
 				</form>
 			</div>
 		</div>
 	</div>
-        
-    
-        <div id="dropDownSelect1"></div>
         
         <script src="./loglib/vendor/jquery/jquery-3.2.1.min.js"></script>
         <script src="./loglib/vendor/animsition/js/animsition.min.js"></script>

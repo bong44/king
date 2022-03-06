@@ -8,6 +8,16 @@ var app = require('../app');
 var debug = require('debug')('king:server');
 var http = require('http');
 
+//https연결을 위한 세팅
+// const https = require('https');
+// const fs = require('fs');
+// var path = require('path');
+
+// const options = {
+//   key: fs.readFileSync(path.join(__dirname, './localhost.key')),
+//   cert: fs.readFileSync(path.join(__dirname, './localhost.crt'))
+// }
+
 /**
  * Get port from environment and store in Express.
  */
@@ -18,8 +28,10 @@ app.set('port', port);
 /**
  * Create HTTP server.
  */
-
+//기존 http
 var server = http.createServer(app);
+
+// var server = https.createServer(options, app);
 
 /**
  * Listen on provided port, on all network interfaces.

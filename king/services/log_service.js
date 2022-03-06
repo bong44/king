@@ -81,7 +81,6 @@ exports.SignUp = async function(req,res){
     } 
     return resultcode; 
     } catch (error) {
-        
+        resultcode = 500;
     }
-    
 };
