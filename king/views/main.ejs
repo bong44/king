@@ -29,22 +29,18 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Home</a></li>
-                        <!-- ejs -->
-                        <!-- 로그인 안 됨 -->
-                        <li class="nav-item"><a class="nav-link" href="/login">로그인</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/signup">회원가입</a></li>
-                        <!-- ejs -->
-                        
-                        <!-- ejs -->
-                        <!-- 로그인 됨 -->
-                        
-                        <!-- ejs -->
-                        <li class="nav-item"><a class="nav-link" href="/manage">회원관리</a></li>
-                        <!-- ejs -->
-                        
-                        <li class="nav-item"><a class="nav-link" href="/upload">업로드</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/logout">로그아웃</a></li>
-                        <!-- ejs -->
+                        <% if (user == "N"){ %>
+                            <!-- 로그인 안 됨 -->
+                            <li class="nav-item"><a class="nav-link" href="/login">로그인</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/signup">회원가입</a></li>
+                        <% } else { %>
+                            <!-- 로그인 됨 -->
+                            <% if (user.user_is_president_yn == "Y"){ %>
+                            <li class="nav-item"><a class="nav-link" href="/manage">회원관리</a></li>
+                            <% } %>
+                            <li class="nav-item"><a class="nav-link" href="/upload">업로드</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/logout">로그아웃</a></li>
+                        <% } %>
                         
                     </ul>
                 </div>
@@ -60,8 +56,13 @@
                             <h1 class="display-5 fw-bolder text-white mb-2">동네를 점령해봐!</h1>
                             <p class="lead text-white-50 mb-4"><br>네가 속한 CLUB을 등록해, 친구들과 경쟁하고 최고가 되어봐! 우리 '골목대장'이 너를 빛나게 해줄게!<br><br></p>
                             <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
-                                <a class="btn btn-custom btn-lg px-4 me-sm-3" href="#!">로그인</a>
-                                <a class="btn btn-outline-light btn-lg px-4" href="#features">회원가입</a>
+                                <% if (user == "N"){ %>
+                                    <a class="btn btn-custom btn-lg px-4 me-sm-3" href="/login">로그인</a>
+                                    <a class="btn btn-outline-light btn-lg px-4" href="/signup">회원가입</a>
+                                <% } else { %>
+                                    <a class="btn btn-custom btn-lg px-4 me-sm-3" href="#!">내 CLUB</a>
+                                    <a class="btn btn-outline-light btn-lg px-4" href="#features">CLUB 목록</a>
+                                <% } %>
                             </div>
                         </div>
                     </div>

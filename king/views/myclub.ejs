@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>골목대장</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="./favicon.ico" />
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="./css/styles.css" rel="stylesheet" />
+        <!-- Google Font -->
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+        </style>
+    </head>
+    <body>
+        <!-- Responsive navbar-->
+        <!-- style="background-color:blue" -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-custom">
+            <div class="container px-5">
+                <a class="navbar-brand" href="/">
+                    골목대장
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Home</a></li>
+                        <% if (user == "N"){ %>
+                            <!-- 로그인 안 됨 -->
+                            <li class="nav-item"><a class="nav-link" href="/login">로그인</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/signup">회원가입</a></li>
+                        <% } else { %>
+                            <!-- 로그인 됨 -->
+                            <% if (user.user_is_president_yn == "Y"){ %>
+                            <li class="nav-item"><a class="nav-link" href="/manage">회원관리</a></li>
+                            <% } %>
+                            <li class="nav-item"><a class="nav-link" href="/upload">업로드</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/logout">로그아웃</a></li>
+                        <% } %>
+                        
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Features section-->
+        <section class="bg-custom-light py-5 border-bottom" id="features">
+            <div class="container px-5 my-5">
+                <div class="row gx-5">
+                    <div class="col-lg-4 mb-5 mb-lg-0">
+                        <div class="feature bg-custom bg-gradient text-white rounded-3 mb-3"><i class="bi bi-chat-left-dots"></i></div>
+                        <h2 class="h4 fw-bolder">수의사님과의 1 : 1 채팅</h2>
+                        <!-- 파일업로드 주석 -->
+                        <!-- <form action="/uploadFileWithOriginalFilename" enctype="multipart/form-data" method="post">
+                            <input id="file" type="file" name="attachment">
+                            <button type="submit" class="btn bg-custom">Upload</button>
+                        </form> -->
+                        <!-- 파일업로드 주석 -->
+                        <p>수의사님과 1대1 채팅을 통해 회원님의 반려동물의 대한 궁금증과 자료들을 주고 받아보실 수 있습니다.</p>
+                        <a class="text-decoration-none" href="/chat">
+                            1 : 1 채팅 시작
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 mb-5 mb-lg-0">
+                        <div class="feature bg-custom bg-gradient text-white rounded-3 mb-3"><i class="bi bi-person-badge"></i></div>
+                        <h2 class="h4 fw-bolder">1 : 1 화상진료</h2>
+                        <p>수의사님과의 1대1 원격 화상진료를 통해 회원님의 반려동물의 건강을 장소와 시간의 제약없이 점검할 수 있습니다.</p>
+                        <a class="text-decoration-none" href="#!">
+                            진료 보러가기
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="feature bg-custom bg-gradient text-white rounded-3 mb-3"><i class="bi bi-calendar4-week"></i></div>
+                        <h2 class="h4 fw-bolder">스케줄링 서비스</h2>
+                        <p>회원님의 반려동물에 대한 진료 날짜, 건강 관리, 여러 일정 관리를 도와줄 스케줄링 서비스를 제공합니다.</p>
+                        <a class="text-decoration-none" href="#!">
+                            나의 스케줄
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer class="py-5 bg-dark">
+            <div class="container px-5"><p class="m-0 text-center text-white">Copyright &copy; 골목대장 2022</p></div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- * *                               SB Forms JS                               * *-->
+        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    </body>
+</html>
